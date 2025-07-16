@@ -54,10 +54,23 @@ if uploaded_file:
 
         # Mostrar opciones adicionales si es albarán y se cancela
         if cancelar and tipo == "Albarán":
-            st.markdown("### ¿Qué deseas hacer con los datos del albarán?")
-            accion = st.selectbox("Selecciona una opción", ["", "Modificar datos", "Volcar datos"])
-            if accion:
-                st.success(f"Has seleccionado: {accion}")
+            st.markdown("""
+                <div style="background-color: #fff9e6; padding: 20px; border-radius: 15px;">
+                    <h4 style="color: #a07900;">📦 ¿Quiere modificar la línea de pedidos?</h4>
+                </div>
+            """, unsafe_allow_html=True)
+
+            col1, col2 = st.columns(2)
+            with col1:
+                modificar = st.button("Aceptar", key="modificar")
+            with col2:
+                volcar = st.button("Cancelar", key="volcar")
+
+            if modificar:
+                st.success("Has seleccionado: Aceptar")
+            elif volcar:
+                st.success("Has seleccionado: Cancelar")
+
 
     # Resultado: Correcto
     else:
