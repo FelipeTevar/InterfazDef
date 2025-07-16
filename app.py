@@ -19,13 +19,13 @@ archivo = st.file_uploader("Seleccione un archivo desde su equipo", type=["pdf",
 # Mostrar nombre del archivo y retroalimentación visual
 if archivo:
     st.success(f"✅ Archivo cargado correctamente: {archivo.name}")
-    archivo_cargado = False
+    archivo_cargado = True
 else:
     archivo_cargado = False
     st.info("📂 Aún no ha cargado ningún archivo.")
 
 # 3. Botón para procesar el archivo
-if archivo_cargado:
+
     st.markdown("3️⃣ ¿El archivo contiene errores?")
     tiene_error = st.radio("Seleccione una opción:", ["No", "Sí"], index=0)
 
