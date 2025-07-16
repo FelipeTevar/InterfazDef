@@ -1,43 +1,60 @@
 import streamlit as st
+import random
 
-# Configuración de la página
-st.set_page_config(page_title="Gestión de Documentos", layout="centered")
+st.set_page_config(page_title="Subida de Archivos", layout="centered")
+st.markdown("<h2 style='font-size: 32px;'>Selecciona el tipo de archivo</h2>", unsafe_allow_html=True)
 
-# Título principal
-st.title("📄 Gestión de Documentos")
+# Paso 1: Selección de tipo
+tipo = st.selectbox("Tipo de archivo", ["Factura", "Albarán"])
 
-# Instrucciones iniciales
-st.markdown("Por favor, siga los pasos para cargar y validar su documento.")
+st.markdown("### ")
+st.markdown("<h3>📁 Arrastra un archivo</h3>", unsafe_allow_html=True)
 
-# 1. Selección del tipo de documento
-tipo_documento = st.selectbox("1️⃣ Seleccione el tipo de archivo:", ["Factura", "Albarán"])
+# Paso 2: Carga de archivo
+uploaded_file = st.file_uploader("", type=["pdf", "jpg", "png", "docx"])
 
-# 2. Carga del archivo
-st.markdown("2️⃣ Cargue su archivo (puede arrastrarlo o hacer clic en el botón para buscar en su equipo):")
-archivo = st.file_uploader("Seleccione un archivo desde su equipo", type=["pdf", "docx", "xlsx", "csv", "txt"], label_visibility="collapsed")
+if uploaded_file:
+    st.markdown(f"""
+        <div style='background-color: #e6ffe6; padding: 20px; border-radius: 10px; text-align: center; font-size: 18px;'>
+            Archivo cargado: <b>{uploaded_file.name}</b>
+        </div>
+    """, unsafe_allow_html=True)
 
-# Mostrar nombre del archivo y retroalimentación visual
-if archivo:
-    st.success(f"✅ Archivo cargado correctamente: {archivo.name}")
-    archivo_cargado = True
+    # Paso 3: Simular procesamiento
+    st.markdown("---")
+    st.markdown("### Resultado del procesamiento")
+
+    resultado = random.choice(["ok", "warning"])  # Simulación
+
+    if resultado == "warning":
+        st.markdown("""
+        <div style="background-color: #f4edfa; padding: 20px; border-radius: 15px;">
+            <h4 style="color: #5a189a;">⚠️ Los documentos no coinciden</h4>
+            <p><i>"Variables que no coinciden"</i></p>
+            <p>¿Quieres ver los documentos en su totalidad?</p>
+            <div style="display: flex; gap: 20px;">
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        col1, col2 = st.columns(2)
+        with col1:
+            aceptar = st.button("Aceptar")
+        with col2:
+            cancelar = st.button("Cancelar")
+
+        if cancelar and tipo == "Albarán":
+            st.markdown("### ¿Qué deseas hacer con los datos del albarán?")
+            accion = st.selectbox("Selecciona una opción", ["", "Modificar datos", "Volcar datos"])
+            if accion:
+                st.success(f"Has seleccionado: {accion}")
+
+    else:
+        st.success("✅ Todo correcto. Los documentos coinciden.")
+
 else:
-    archivo_cargado = False
-    st.info("📂 Aún no ha cargado ningún archivo.")
-
-# 3. Botón para procesar el archivo
-
-    st.markdown("3️⃣ ¿El archivo contiene errores?")
-    tiene_error = st.radio("Seleccione una opción:", ["No", "Sí"], index=0)
-
-    if st.button("🔍 Procesar archivo"):
-        if tiene_error == "Sí":
-            st.warning("⚠️ Los documentos no coinciden\nVariables que no coinciden\n")
-            accion = st.radio("¿Quieres ver los documentos en su totalidad?", ["Aceptar", "Cancelar"], index=0)
-
-            # 4. Si es Albarán y se cancela, mostrar opciones adicionales
-            if tipo_documento == "Albarán" and accion == "Cancelar":
-                st.markdown("🛠️ ¿Quieres modificar la línea de pedido?")
-                opcion_albaran = st.selectbox("Seleccione una opción:", ["Aceptar", "Cancelar"])
-                st.info(f"Ha seleccionado: **{opcion_albaran}**")
-        else:
-            st.success("✅ El archivo ha sido validado correctamente. No se encontraron errores.")
+    st.markdown("""
+        <div style='background-color: #f2f2f2; padding: 20px; border-radius: 10px; text-align: center; font-size: 16px;'>
+            Arrastra el archivo aquí o examina tu equipo.
+        </div>
+    """, unsafe_allow_html=True)
