@@ -19,7 +19,7 @@ archivo = st.file_uploader("Seleccione un archivo desde su equipo", type=["pdf",
 # Mostrar nombre del archivo y retroalimentación visual
 if archivo:
     st.success(f"✅ Archivo cargado correctamente: {archivo.name}")
-    archivo_cargado = True
+    archivo_cargado = False
 else:
     archivo_cargado = False
     st.info("📂 Aún no ha cargado ningún archivo.")
