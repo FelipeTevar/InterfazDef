@@ -31,3 +31,13 @@ if archivo_cargado:
 
     if st.button("🔍 Procesar archivo"):
         if tiene_error == "Sí":
+            st.warning("⚠️ Los documentos no coinciden\nVariables que no coinciden\n")
+            accion = st.radio("¿Quieres ver los documentos en su totalidad?", ["Aceptar", "Cancelar"], index=0)
+
+            # 4. Si es Albarán y se cancela, mostrar opciones adicionales
+            if tipo_documento == "Albarán" and accion == "Cancelar":
+                st.markdown("🛠️ ¿Quieres modificar la línea de pedido?")
+                opcion_albaran = st.selectbox("Seleccione una opción:", ["Aceptar", "Cancelar"])
+                st.info(f"Ha seleccionado: **{opcion_albaran}**")
+        else:
+            st.success("✅ El archivo ha sido validado correctamente. No se encontraron errores.")
