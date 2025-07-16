@@ -8,10 +8,17 @@ st.markdown("<h2 style='font-size: 32px;'>Selecciona el tipo de archivo</h2>", u
 tipo = st.selectbox("Tipo de archivo", ["Factura", "Albarán"])
 
 st.markdown("### ")
-st.markdown("<h3>📁 Arrastra un archivo</h3>", unsafe_allow_html=True)
+st.markdown("<h3>📁 Subida de archivo</h3>", unsafe_allow_html=True)
 
-# Paso 2: Subida del archivo
-uploaded_file = st.file_uploader("", type=["pdf", "jpg", "png", "docx"])
+# Paso 2: Caja visual personalizada + file_uploader sin label
+st.markdown("""
+    <div style='background-color: #f2f2f2; padding: 20px; border-radius: 10px; text-align: center; font-size: 16px;'>
+        <strong>Arrastra y suelta el archivo aquí</strong><br>
+        <span style='color: gray;'>Límite 200MB por archivo • PDF, JPG, PNG, DOCX, JPEG</span>
+    </div>
+""", unsafe_allow_html=True)
+
+uploaded_file = st.file_uploader("", type=["pdf", "jpg", "png", "jpeg", "docx"], label_visibility="collapsed")
 
 # Simulador de análisis para la demo
 modo_demo = st.checkbox("Modo demo (activar simulación manual)")
@@ -71,7 +78,6 @@ if uploaded_file:
             elif volcar:
                 st.success("Has seleccionado: Cancelar")
 
-
     # Resultado: Correcto
     else:
         st.markdown("""
@@ -79,10 +85,3 @@ if uploaded_file:
             <h4 style="color: #007f5f;">✅ Todo correcto. Los documentos coinciden.</h4>
         </div>
         """, unsafe_allow_html=True)
-
-else:
-    st.markdown("""
-        <div style='background-color: #f2f2f2; padding: 20px; border-radius: 10px; text-align: center; font-size: 16px;'>
-            Arrastra el archivo aquí o examina tu equipo.
-        </div>
-    """, unsafe_allow_html=True)
