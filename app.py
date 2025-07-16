@@ -4,10 +4,16 @@ st.set_page_config(page_title="Subida de Archivos", layout="centered")
 
 st.markdown("<h2 style='font-size: 32px;'>Selecciona el tipo de archivo</h2>", unsafe_allow_html=True)
 
+# Simulador de análisis para la demo
+modo_demo = st.checkbox("Modo demo (activar simulación manual)")
+if modo_demo:
+    resultado_simulado = st.radio("Forzar resultado de análisis", ["Correcto", "Advertencia"])
+else:
+    resultado_simulado = None
+
 # Paso 1: Selección de tipo de archivo
 tipo = st.selectbox("Tipo de archivo", ["Factura", "Albarán"])
 
-st.markdown("### ")
 st.markdown("<h3>📁 Subida de archivo</h3>", unsafe_allow_html=True)
 
 # Paso 2: Caja visual personalizada + file_uploader sin label
@@ -19,13 +25,6 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 uploaded_file = st.file_uploader("", type=["pdf", "jpg", "png", "jpeg", "docx"], label_visibility="collapsed")
-
-# Simulador de análisis para la demo
-modo_demo = st.checkbox("Modo demo (activar simulación manual)")
-if modo_demo:
-    resultado_simulado = st.radio("Forzar resultado de análisis", ["Correcto", "Advertencia"])
-else:
-    resultado_simulado = None
 
 # Mostrar información del archivo cargado
 if uploaded_file:
