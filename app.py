@@ -10,7 +10,7 @@ st.title("📄 Gestión de Documentos")
 st.markdown("Por favor, siga los pasos para cargar y validar su documento.")
 
 # 1. Selección del tipo de documento
-tipo_documento = st.selectbox("1️⃣ Seleccione el tipo de arhivo:", ["Factura", "Albarán"])
+tipo_documento = st.selectbox("1️⃣ Seleccione el tipo de archivo:", ["Factura", "Albarán"])
 
 # 2. Carga del archivo
 st.markdown("2️⃣ Cargue su archivo (puede arrastrarlo o hacer clic en el botón para buscar en su equipo):")
@@ -26,17 +26,8 @@ else:
 
 # 3. Botón para procesar el archivo
 if archivo_cargado:
+    st.markdown("3️⃣ ¿El archivo contiene errores?")
+    tiene_error = st.radio("Seleccione una opción:", ["No", "Sí"], index=0)
+
     if st.button("🔍 Procesar archivo"):
-        # Simulación de validación
-        if "error" in archivo.name.lower():
-            st.warning("⚠️ El archivo contiene datos que no coinciden o presentan errores.")
-            accion = st.radio("¿Qué desea hacer?", ["Aceptar", "Cancelar"], index=0)
-
-            # 4. Si es Albarán y se cancela, mostrar opciones adicionales
-            if tipo_documento == "Albarán" and accion == "Cancelar":
-                st.markdown("🛠️ ¿Qué desea hacer con el albarán?")
-                opcion_albaran = st.selectbox("Seleccione una opción:", ["Modificar albarán", "Volcar datos del albarán"])
-                st.info(f"Ha seleccionado: **{opcion_albaran}**")
-        else:
-            st.success("✅ El archivo ha sido validado correctamente. No se encontraron errores.")
-
+        if tiene_error == "Sí":
