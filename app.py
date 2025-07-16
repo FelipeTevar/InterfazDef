@@ -7,10 +7,10 @@ st.set_page_config(page_title="Gestión de Documentos", layout="centered")
 st.title("📄 Gestión de Documentos")
 
 # Instrucciones iniciales
-st.markdown("Por favor, siga los pasos para cargar y validar su documento. Esta aplicación está diseñada para ser fácil de usar.")
+st.markdown("Por favor, siga los pasos para cargar y validar su documento.")
 
 # 1. Selección del tipo de documento
-tipo_documento = st.selectbox("1️⃣ Seleccione el tipo de documento:", ["Factura", "Albarán"])
+tipo_documento = st.selectbox("1️⃣ Seleccione el tipo de arhivo:", ["Factura", "Albarán"])
 
 # 2. Carga del archivo
 st.markdown("2️⃣ Cargue su archivo (puede arrastrarlo o hacer clic en el botón para buscar en su equipo):")
@@ -40,6 +40,3 @@ if archivo_cargado:
         else:
             st.success("✅ El archivo ha sido validado correctamente. No se encontraron errores.")
 
-# Pie de página
-st.markdown("---")
-st.markdown("🧓 Esta aplicación ha sido diseñada para ser clara y sencilla. Si necesita ayuda, por favor pida asistencia.")
