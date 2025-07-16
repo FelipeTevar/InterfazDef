@@ -45,14 +45,12 @@ if uploaded_file:
             <h4 style="color: #5a189a;">⚠️ Los documentos no coinciden</h4>
             <p><i>"Variables que no coinciden"</i></p>
             <p>¿Quieres ver los documentos en su totalidad?</p>
-                    
-            col1, col2 = st.columns(2)
-            aceptar = col1.button("Aceptar")
-            cancelar = col2.button("Cancelar")
         </div>
         """, unsafe_allow_html=True)
 
-       
+        col1, col2 = st.columns(2)
+        aceptar = col1.button("Aceptar")
+        cancelar = col2.button("Cancelar")
 
         # Mostrar opciones adicionales si es albarán y se cancela
         if cancelar and tipo == "Albarán":
